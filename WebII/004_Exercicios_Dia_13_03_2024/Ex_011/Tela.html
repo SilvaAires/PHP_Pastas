@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 11</title>
+</head>
+<body>
+    <h1>11) Escreva e use uma função que escreva uma tag <'img'>.
+        A função deve ter um parâmetro obrigatório contendo a
+        URL da imagem (campo src) e três argumentos opcionais
+        para os campos alt, height e width. Escreva uma página que
+        leia os valores de um formulário e os utilize para exibir uma
+        imagem na tela, usando a função criada.                
+    </h1>
+    <h2>Exibir Imagem</h2>
+    <form name="entrada" method="post" action="Codigo.php">
+        <label for="url">URL da Imagem:</label>
+        <input type="text" id="url" name="url" required><br><br>
+
+        <label for="alt">Alt Text:</label>
+        <input type="text" id="alt" name="alt"><br><br>
+
+        <label for="height">Altura:</label>
+        <input type="text" id="height" name="height"><br><br>
+
+        <label for="width">Largura:</label>
+        <input type="text" id="width" name="width"><br><br>
+
+        <input type="submit" value="Exibir Imagem">
+    </form>
+</body>
+</html>
+
+
+
+
+
