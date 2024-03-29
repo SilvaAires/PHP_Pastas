@@ -1,7 +1,9 @@
 <?php
     include_once "conexao.php";
-
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    
     if(isset($_SESSION["consulta_realizada"]) && $_SESSION["consulta_realizada"] === true) {
         // Limpar a variável de sessão
         unset($_SESSION["consulta_realizada"]);
@@ -21,7 +23,7 @@
 
             echo ("<h2>Cadastro realizado com sucesso!</h2>");
 
-            consultarNome($nome);
+            consultarNome2($nome);
             echo ('<br>
                    <form name="voltar" method="post" action="index.php">
                    <input type="submit" name="botao" value="Voltar">
@@ -42,7 +44,7 @@
         $conexao = encerrar();
     }
 
-    function consultarNome($nome){
+    function consultarNome2($nome){
         $conexao = conectar("agenda", "root", "");
         $sql = "SELECT * FROM agenda WHERE nome = :nome";
         $pstmt = $conexao->prepare($sql);

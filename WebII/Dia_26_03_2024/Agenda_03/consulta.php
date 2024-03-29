@@ -1,7 +1,10 @@
 <?php
     include_once "conexao.php";
     
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    
     if(isset($_SESSION["consulta_realizada"]) && $_SESSION["consulta_realizada"] === true) {
         // Limpar a variável de sessão
         unset($_SESSION["consulta_realizada"]);

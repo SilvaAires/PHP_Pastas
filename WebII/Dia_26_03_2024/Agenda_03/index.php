@@ -1,6 +1,10 @@
 <?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
     include_once("consulta.php");
     include_once("alterar.php");
+    
 ?>
 
 <!DOCTYPE html>
