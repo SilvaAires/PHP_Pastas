@@ -11,7 +11,7 @@
         header("Location: index.php");
         exit; // Sair do script PHP
     }
-
+    
     if(isset($_POST["combo"])){
         $op = $_POST["combo"];
         if($op != "0"){
@@ -40,7 +40,7 @@
         if(isset($_POST['excluir'])){
             $_SESSION["consulta_realizada"] = true;
             $id = $_POST["id"];
-            delete($id);
+            deletar($id);
             echo ('<br>
                    <form name="voltar" method="post" action="index.php">
                    <input type="submit" name="botao" value="voltar">
@@ -124,7 +124,7 @@
         $conexao = encerrar();
     }
 
-    function delete($id){
+    function deletar($id){
         $conexao = conectar("agenda", "root", "");
         $sql = "DELETE FROM agenda WHERE id = :id";
         $pstmt = $conexao->prepare($sql);
