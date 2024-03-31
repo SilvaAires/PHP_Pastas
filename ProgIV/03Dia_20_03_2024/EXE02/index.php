@@ -1,13 +1,13 @@
 <?php
     session_start();
-    if(isset($_SESSION["usuario_sessao"])){
+    if(!isset($_SESSION["usuario_sessao"])){
         header('Location: login.php');
         exit();
     }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en">S
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

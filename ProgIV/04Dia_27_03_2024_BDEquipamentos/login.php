@@ -1,31 +1,32 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+    //Sessão
+    include_once "Conexao.php";
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    //Final de Sessão
 
-if(isset($_POST["login"]) && isset($_POST["senha"])){
-
-$login = $_POST['login'];
-$entrar = $_POST['entrar'];
-$senha = $_POST['senha'];
-$connect = mysqli_connect('localhost','root','','sistema');
-
-    if (isset($entrar)) {
-        $sql="SELECT * FROM usuarios WHERE login ='$login' AND senha = '$senha'";
-        $verifica = mysqli_query($connect,$sql) or die("erro ao selecionar");
-        if(mysqli_num_rows($verifica)<=0){
-            echo"<script language='javascript' type='text/javascript'>
-            alert('Login e/ou senha incorretos');window.location
-            .href='login.php';</script>";
-            die();
-        }else{
-            $_SESSION["usuario_sessao"] = $_POST["login"];
-            header("Location: index.php");
-            exit(); 
+    if(isset($_POST["nome"]) && isset($_POST["senha"])){
+        if(isset($_POST['entrar'])){
+            $conexao = conectar("bdequi", "root", "");
+            $sql = "SELECT nome, senha FROM usuarios WHERE nome = :nome AND senha = :senha";
+            $pstmt = $conexao->prepare($sql);
+            $pstmt->bindValue(":nome", $_POST['nome']);
+            $pstmt->bindValue(":senha", $_POST['senha']);
+            $pstmt->execute();
+            while($linha = $pstmt->fetch()){
+                if(($linha["nome"]==$_POST['nome']) && ($linha["senha"]==$_POST['senha'])){
+                    $_SESSION["usuario_sessao"] =  $linha["nome"];
+                    header("Location: Index.php");
+                    exit();
+                }else{
+                    echo "<script language='javascript' type='text/javascript'>
+                            alert('Login e/ou senha incorretos');window.location.href='login.php';
+                           </script>";
+                }
+            }
         }
     }
- 
-}
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +38,7 @@ $connect = mysqli_connect('localhost','root','','sistema');
 </head>
 <body>
     <form action="login.php" method="post">
-        Usuario: <input type="text" name="login">
+        Usuario: <input type="text" name="nome">
         Senha: <input type="password" name="senha">
         <input type="submit" value="entrar" name="entrar">
     </form>
