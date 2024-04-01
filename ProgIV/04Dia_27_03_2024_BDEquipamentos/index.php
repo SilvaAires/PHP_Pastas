@@ -22,7 +22,7 @@
                 <li><a href="Consulta/TelaConsulta.php">Consultar informações</a></li>
                 <li><a href="Inserir/TelaInserir.php">Adicionar informações</a></li>
                 <li><a href="Alterar/TelaAlterar.php">Alterar informações</a></li>
-                <li><a href="sair.php">Sair</a></li>
+                <li><a href="Sair.php">Sair</a></li>
             </ul>
         </nav>
     </header>

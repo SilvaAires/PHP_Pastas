@@ -1,4 +1,5 @@
 <?php
+    include_once "../Inserir/EmprestimoInserir.php";
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
@@ -13,6 +14,18 @@
     <link rel="stylesheet" href="../Estilo/TelaInserirEstilo.css" />
 </head>
 <body>
+    <header class="container header">
+        <p class="usuario">Nenhum usuário logado</p>
+        <nav class="menu-opcoes">
+            <ul>
+                <li><a href="../Index.php">Principal</a></li>
+                <li><a href="../Consulta/TelaConsulta.php">Consultar informações</a></li>
+                <li><a href="../Inserir/TelaInserir.php">Adicionar informações</a></li>
+                <li><a href="../Alterar/TelaAlterar.php">Alterar informações</a></li>
+                <li><a href="../Sair.php">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="container"> <!-- Envolve as divs em um container -->
         <div class="user-form">
             <h1>Cadastrar Usuário</h1>
@@ -52,12 +65,16 @@
             <h1>Cadastrar Emprestimo</h1>
             <form action="../Inserir/EmprestimoInserir.php" method="post">
                 <p>
-                    <label for="nome3">lista de Nome:</label>
-                    <input type="text" id="nome3" name="nome3">
+                    <label for="nome3">Lista de Nome:</label>
+                    <?php
+                        echo listarUser();
+                    ?>
                 </p>
                 <p>
-                    <label for="email3">lista de equipamentos:</label>
-                    <input type="text" id="email3" name="email3">
+                    <label for="email3">Lista de Equipamentos:</label>
+                    <?php
+                        echo listarEqui();
+                    ?>
                 </p>
                 <p>
                     <input type="submit" name="botaoEmp" value="Cadastrar Emprestimo">

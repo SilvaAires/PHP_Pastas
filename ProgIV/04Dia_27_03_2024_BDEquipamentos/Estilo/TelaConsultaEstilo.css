@@ -1,4 +1,6 @@
+/* estilo.css */
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
     padding: 20px;
 }
@@ -47,32 +49,33 @@ body {
 .container {
     display: flex;
     justify-content: space-around;
-}
-
-.user-form {
-    border: 1px solid #ccc;
     padding: 20px;
-    box-shadow: 0 0 10px #ccc;
-    border-radius: 5px;
 }
 
-.user-form form p {
-    margin: 10px 0;
+.div-container {
+    width: 30%; /* Ajuste conforme necessário */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    background-color: #fff;
 }
 
-input[type="text"], input[type="submit"] {
-    padding: 5px;
-    margin: 0 5px 0 0;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-input[type="submit"] {
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
 }
 
-input[type="submit"]:hover {
-    background-color: #0056b3;
+th {
+    background-color: #f2f2f2;
+}
+
+/* Adiciona zebra striping às linhas da tabela */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
 }

@@ -8,7 +8,7 @@
         // Limpar a variável de sessão
         unset($_SESSION["consulta_realizada"]);
         // Não exibir a tabela novamente
-        header("Location: ../Inserir/TelaInserir.php");
+        header("Location: TelaInserir.php");
         exit; // Sair do script PHP
     }
 
@@ -24,14 +24,13 @@
 
             consultarUsuario($nome);
             echo ('<br>
-                   <form name="voltar" method="post" action="../Inserir/TelaInserir.php">
+                   <form name="voltar" method="post" action="TelaInserir.php">
                    <input type="submit" name="botao" value="Voltar">
                    </form>');
         }else{
-            header('Location: ../Inserir/TelaInserir.php');
+            header('Location: TelaInserir.php');
         }
     }
-
 
     function inserteUsuario($nome, $senha){
         $conexao = conectar("bdequi", "root", "");
