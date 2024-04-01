@@ -71,18 +71,18 @@
     }
 
     function listarUser(){
-    echo '<select name="comboUser">
-          <option value="0" selected>(selecione um nome:)</option>';
+        echo '<select name="comboUser">
+            <option value="0" selected>(selecione um nome:)</option>';
 
-    $conexao = conectar("bdequi", "root", "");
-    $sql = "SELECT nome FROM usuarios ORDER BY nome";
-    $pstmt = $conexao->prepare($sql);
-    $pstmt->execute();
-    while($linha = $pstmt->fetch()){
-        echo '<option value="'.$linha["nome"].'">'.$linha["nome"].'</option>';
-    }
-    $conexao = encerrar();
-    echo '</select>';
+        $conexao = conectar("bdequi", "root", "");
+        $sql = "SELECT nome FROM usuarios ORDER BY nome";
+        $pstmt = $conexao->prepare($sql);
+        $pstmt->execute();
+        while($linha = $pstmt->fetch()){
+            echo '<option value="'.$linha["nome"].'">'.$linha["nome"].'</option>';
+        }
+        $conexao = encerrar();
+        echo '</select>';
     }
 
     function listarEqui(){
