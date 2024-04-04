@@ -1,16 +1,22 @@
 <?php
-    include_once "../Inserir/EmprestimoInserir.php";
+    include_once "../ConexaoBD/Conexao.php";
+    include_once ("../Consulta/EquipamentoConsulta.php");
+    include_once ("../Consulta/UsuarioConsulta.php");
+    include_once ("../Inserir/EmprestimoInserir.php");
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+    if(!isset($_SESSION["usuario_sessao"])){
+        header('Location: login.php');
+        exit();
+    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inserção de dados</title>
+    <title>Home</title>
     <link rel="stylesheet" href="../Estilo/TelaAllEstilo.css" />
 </head>
 <body>
@@ -18,47 +24,24 @@
     <h3 class="usuario"><?php echo "Usuário Logado: ".$_SESSION["usuario_sessao"]; ?></h3>
         <nav class="menu-opcoes">
             <ul>
-                <li><a href="../Principais/index.php">Principal</a></li>
+                <li><a href="Index.php">Principal</a></li>
                 <li><a href="../Consulta/TelaConsulta.php">Consultar informações</a></li>
                 <li><a href="../Inserir/TelaInserir.php">Adicionar informações</a></li>
                 <li><a href="../Alterar/TelaAlterar.php">Alterar informações</a></li>
-                <li><a href="../Principais/sair.php">Sair</a></li>
+                <li><a href="Sair.php">Sair</a></li>
             </ul>
         </nav>
     </header>
-    <div class="container"> <!-- Envolve as divs em um container -->
+
+    <div class="container">
         <div class="user-form">
-            <h1>Cadastrar Usuário</h1>
-            <form action="../Inserir/UsuarioInserir.php" method="post">
-                <p>
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome" name="nome">
-                </p>
-                <p>
-                    <label for="senha">Senha:</label>
-                    <input type="text" id="senha" name="senha">
-                </p>
-                <p>
-                    <input type="submit" name="b" value="Cadastrar Usuário">
-                </p>
-            </form>
+            <h1>Informações de Usuários</h1>
+            <?php consultarUser(); ?>
         </div>
 
         <div class="user-form">
-            <h1>Cadastrar Equipamento</h1>
-            <form action="../Inserir/EquipamentoInserir.php" method="post">
-                <p>
-                    <label for="descricao">Descrição:</label>
-                    <input type="text" id="descricao" name="descricao">
-                </p>
-                <p>
-                    <label for="setor">Setor:</label>
-                    <input type="text" id="setor" name="setor">
-                </p>
-                <p>
-                    <input type="submit" name="botaoEqui" value="Cadastrar Equipamento">
-                </p>
-            </form>
+            <h1>Informações de Equipamentos</h1>
+            <?php consultarEqu(); ?>
         </div>
 
         <div class="user-form">
@@ -85,4 +68,4 @@
         </div>
     </div>
 </body>
-</html>
+</html>S

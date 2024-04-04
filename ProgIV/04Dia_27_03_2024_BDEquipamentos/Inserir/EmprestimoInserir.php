@@ -1,5 +1,5 @@
 <?php
-    include_once "../Conexao.php";
+    include_once "../ConexaoBD/Conexao.php";
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
@@ -13,13 +13,13 @@
     }
 
     if(isset($_POST["botaoEmp"])){
-        if((isset($_POST["comboUser"])) && (isset($_POST["comboEqui"])) && 
-           ($_POST["comboUser"] != "0") && ($_POST["comboEqui"] != "0")){
+        if((isset($_POST["comboUser"])) && (isset($_POST["comboEqui"])) && (isset($_POST["data_hora"]))
+        && ($_POST["comboUser"] != "0") && ($_POST["comboEqui"] != "0")){
             $_SESSION["consulta_realizada"] = true;
 
             $usa = consU($_POST["comboUser"]);
             $equ = consE($_POST["comboEqui"]);
-            inserteEmp($usa, $equ);
+            inserteEmp($usa, $equ, $_POST["data_hora"]);
 
             echo ("<h2>Cadastro realizado com sucesso!</h2>");
 
@@ -60,12 +60,13 @@
         return $r;
     }
 
-    function inserteEmp($nome, $descricao){
+    function inserteEmp($usuario, $equipamento, $dia){
         $conexao = conectar("bdequi", "root", "");
-        $sql = "INSERT INTO emprestimos (usuario, equipamento) values (:usuario, :equipamento)";
+        $sql = "INSERT INTO emprestimos (usuario, equipamento, dia) values (:usuario, :equipamento, :dia)";
         $pstmt = $conexao->prepare($sql);
-        $pstmt->bindValue(":equipamento", $descricao);
-        $pstmt->bindValue(":usuario", $nome);
+        $pstmt->bindValue(":equipamento", $equipamento);
+        $pstmt->bindValue(":usuario", $usuario);
+        $pstmt->bindValue(":dia", $dia);
         $pstmt->execute();
         $conexao = encerrar();
     }
