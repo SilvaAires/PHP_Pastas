@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.usuario {
+    order: 2; /* Coloca o usuário no final */
+}
+
+.menu-opcoes {
+    order: 1; /* Mantém o menu no início */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    margin: 0.5%;
+}
+
+/* Estilização do menu e itens */
+.menu-opcoes ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu-opcoes li {
+    margin-left: 20px;
+}
+
+.menu-opcoes a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Estilização do texto do usuário */
+.usuario {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.user-form {
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px #ccc;
+    border-radius: 5px;
+}
+
+.user-form form p {
+    margin: 10px 0;
+}
+
+input[type="text"], input[type="submit"] {
+    padding: 5px;
+    margin: 0 5px 0 0;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
