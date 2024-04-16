@@ -1,6 +1,7 @@
 <?php
     include_once ("BDUpdate_Delete.php");
     include_once ("../Menu/Conexao.php");
+    include_once ("../Select/BDSelect.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,27 +24,40 @@
     </header>
     <div class="container">
         <div class="div-container">
-        <?php
-            combCPF();
-            if(isset($_POST["comboUp"])){
-                $op = $_POST["comboUp"];
-                if($op != "0"){
-                    updateCPF($op);
+            <?php
+                combCPF();
+                inputCPF();
+                if(isset($_POST["cpf2"])){
+                    $op = $_POST["cpf2"];
+                    if($op != "0"){
+                        updateCPF($op);
+                    }
+                }else{
+                    if(isset($_POST["comboUp"])){
+                        $oap = $_POST["comboUp"];
+                        if($oap != "0"){
+                            updateCPF($oap);
+                        }
+                    }
                 }
-            }
-            if(isset($_POST['altUp'])){
-                altHospede($_POST["cpf"], $_POST["nome"], $_POST["sobrenome"], $_POST["sexo"], $_POST["data"]);
-                $ciasAereas = implode(", ", $_POST["cia"]);
-                altControle($_POST["cpf"], $_POST["pais"], $_POST["previsao"], $ciasAereas);
-                header("Location: TelaUpdate_Delete.php");
-            }else{
-                if(isset($_POST['excDel'])){
-                    delControle($_POST["cpf"]);
-                    delHospede($_POST["cpf"]);
-                    header("Location: TelaUpdate_Delete.php");
+                if(isset($_POST['altUp'])){
+                    altHospede($_POST["cpf"], $_POST["nome"], $_POST["sobrenome"], $_POST["sexo"], $_POST["data"]);
+                    $ciasAereas = implode(", ", $_POST["cia"]);
+                    altControle($_POST["cpf"], $_POST["pais"], $_POST["previsao"], $ciasAereas);
+                    echo ("<p><b>Dados alterados com sucesso!</b></p>");
+                    //header("Location: TelaUpdate_Delete.php");
+                }else{
+                    if(isset($_POST['excDel'])){
+                        delControle($_POST["cpf"]);
+                        delHospede($_POST["cpf"]);
+                        echo ("<p><b>Dados deletados com sucesso!</b></p>");
+                        //header("Location: TelaUpdate_Delete.php");
+                    }
                 }
-            }
-        ?>
+                if(isset($_POST["cpf"])){
+                    consCPF($_POST["cpf"]);
+                }
+            ?>
         </div>
     </div>
 </body>

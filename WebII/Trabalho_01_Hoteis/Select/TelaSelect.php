@@ -1,6 +1,6 @@
 <?php
-include_once "BDSelect.php";
-include_once "../Menu/Conexao.php";
+    include_once "BDSelect.php";
+    include_once "../Menu/Conexao.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,13 +23,39 @@ include_once "../Menu/Conexao.php";
     </header>
     <div class="container">
         <div class="div-container">
-            <p><b>Pesquisar Hospede</b></p>
+            <p><b>Pesquisar hospede por CPF</b></p>
             <?php
                 comboCpf();
+                inCPF();
                 if(isset($_POST["comboHospede"])){
                     $op = $_POST["comboHospede"];
                     if($op != "0"){
                         consCPF($op);
+                    }
+                }else{
+                    if(isset($_POST["cpf2"])){
+                        $op = $_POST["cpf2"];
+                        if($op != "0"){
+                            consCPF($op);
+                        }
+                    }
+                }
+            ?>
+            <p><b>Pesquisar hospede por nome</b></p>
+            <?php
+                comboNome();
+                inNome();
+                if(isset($_POST["comboHospede"])){
+                    $op = $_POST["comboHospede"];
+                    if($op != "0"){
+                        consNome($op);
+                    }
+                }else{
+                    if(isset($_POST["nome1"])){
+                        $op = $_POST["nome1"];
+                        if($op != "0"){
+                            consNome($op);
+                        }
                     }
                 }
             ?>

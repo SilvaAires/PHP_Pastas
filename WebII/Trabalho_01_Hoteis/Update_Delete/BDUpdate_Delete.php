@@ -5,7 +5,7 @@
         echo '
         <form name="menu" method="post" action="TelaUpdate_Delete.php">
             <select name="comboUp">
-                <option value="0" selected>(selecione um nome:)</option>';
+                <option value="0" selected>(Selecione um nome:)</option>';
 
         $conexao = conectar("bdhotel", "root", "");
         $sql = "SELECT cpf FROM hospede ORDER BY cpf";
@@ -16,8 +16,19 @@
         }
         $conexao = encerrar();
         echo 
-            '</select> 
+            '</select>
             <input type="submit" value="consulta">
+        </form>';
+    }
+
+    function inputCPF(){
+        echo '
+        <form name="menu" method="post" action="TelaUpdate_Delete.php">
+            <p>
+                <label for="cpf2">Digite um CPF:</label>
+                <input type="text" id="cpf2" name="cpf2" required>
+                <input type="submit" value="consulta">
+            </p>
         </form>';
     }
 
@@ -32,7 +43,7 @@
         while ($linha = $pstmt->fetch()) {
             echo '<p>
                     <label for="cpf">CPF:</label>
-                    <input type="number" id="cpf" name="cpf" value="'.$linha["cpf"].'" required readonly>
+                    <input type="text" id="cpf" name="cpf" value="'.$linha["cpf"].'" required readonly>
                   </p>';
 
             echo '<p>
