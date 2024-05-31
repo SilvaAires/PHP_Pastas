@@ -208,6 +208,7 @@ nav .form-group .icon{
     top: 50%;
     transform: translateY(-50%);
     right: 16px;
+    color: var(--dark-grey);
 }
 
 nav .nav-link{
@@ -243,9 +244,109 @@ nav .divider{
     display: block;
 }
 
+nav .profile{
+    position: relative;
+}
+
 nav .profile img{
     width: 36px;
     height: 36px;
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
+}
+
+nav .profile .profile-link{
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--light);
+    padding: 10px 0;
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    width: 160px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+
+nav .profile .profile-link.show{
+    opacity: 1;
+    pointer-events: visible;
+    top: 100%;
+}
+
+nav .profile .profile-link a{
+    padding: 10px 16px;
+    display: flex;
+    grid-gap: 10px;
+    font-size: 14px;
+    color: var(--dark);
+    align-items: center;
+    transition: all .3s ease;
+}
+
+nav .profile .profile-link a:hover{
+    background: var(--grey);
+    border-radius: 10px;
+}
+
+main{
+    width: 100%;
+    padding: 24px 20px 20px 20px;
+}
+
+main .title{
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+main .Breadcrumbs{
+    display: flex;
+    grid-gap: 6px;
+}
+
+main .Breadcrumbs li,
+main .Breadcrumbs li a{
+    font-size: 14px;
+}
+
+main .Breadcrumbs li a{
+    color: var(--dark-blue);
+}
+
+main .Breadcrumbs li a.active
+main .Breadcrumbs li.divider{
+    color: var(--grey);
+    pointer-events: none;
+}
+
+main .info-data{
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-gap: 20px;
+}
+
+main .info-data .card{
+    padding: 20px;
+    border-radius: 10px;
+    background: var(--light);
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
+}
+
+main .card .head{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+main .card .head h2{
+    font-size: 24px;
+    font-weight: 600;
+}
+
+main.card .head p{
+    font-size: 14px;
 }
