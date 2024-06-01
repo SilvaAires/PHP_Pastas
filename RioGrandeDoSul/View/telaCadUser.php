@@ -35,28 +35,22 @@
 </html>
 
 <?php
-    function conectar($db, $usuario, $senha){
-        return new PDO("mysql:host=localhost; dbname=$db", $usuario, $senha);
-    }
+    include_once "../Model/user.php";
+    include_once '../Controlle/userDAO.php';
 
-    function encerrar(){
-        return null;
-    }
-    function inserirHos($login, $passaword){
-        $criacao = date("Y-m-d H:i:s");
-        $conexao = conectar("helprs", "root", "");
-        $sql = "INSERT INTO user (login, passaword, criacao) 
-        values (:login, :passaword, :criacao)";
-        $pstmt = $conexao->prepare($sql);
-        $pstmt->bindValue(":login", $login);
-        $pstmt->bindValue(":passaword", $passaword);
-        $pstmt->bindValue(":criacao", $criacao);
-        $boolean = $pstmt->execute();
-        $conexao = encerrar();
-        return $boolean;
-    }
-    if(isset($_POST["login"])){
-        inserirHos($_POST["login"], $_POST["passaword"]);
-        echo ":".$_POST["tipo"];
+    if(isset($_POST['login']) && isset($_POST['passaword']) && isset($_POST['tipo'])){
+        $data_hora = date("Y-m-d H:i:s");
+        $art = array("login" => $_POST['login'], "passaword" => $_POST['passaword'], "criacao" => $data_hora);
+        $userDAo = new userDAO();
+        $user = new user($art);
+
+        $userDAo->insertUser($user);
+
+        $lista = $userDAo->selectAllUser();
+
+        foreach ($lista as $funcionario){
+            $funcionario = new user($funcionario);
+             echo $funcionario;
+        }
     }
 ?>

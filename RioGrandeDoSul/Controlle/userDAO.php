@@ -1,6 +1,6 @@
 <?php
-    include_once __DIR__ . '../Conexao/Conexao.php';
-    include_once  __DIR__ . '../Model/user.php';
+    include_once '../Conexao/Conexao.php';
+    include_once '../Model/user.php';
     class userDAO{
         private $conexao;
         public function __construct(){
@@ -8,7 +8,7 @@
         }
         function insertUser(user $user){
             $pstmt = $this->conexao->prepare("INSERT INTO user (login, passaword, criacao) VALUES (:login, :passaword, :criacao)");
-            $pstmt->bindValue(":login", $user->getId());
+            $pstmt->bindValue(":login", $user->getLogin());
             $pstmt->bindValue(":passaword", $user->getPassaword());
             $pstmt->bindValue(":criacao", $user->getCriacao());
             $pstmt->execute();
