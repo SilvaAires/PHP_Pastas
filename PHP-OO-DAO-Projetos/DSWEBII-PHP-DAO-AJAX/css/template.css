@@ -1,0 +1,25 @@
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 90%;
+    }
+}
+
+body {
+    background-color: rgb(245, 245, 245);
+}
+
+.titulo {
+    padding: 10px;
+}
+
+.btn-submit {
+    margin-bottom: 20px;
+}
+
+.corPadrao1 {
+    background-color: #66bb6a;
+}
+
+.corPadrao2 {
+    background-color: #2196f3;
+}
