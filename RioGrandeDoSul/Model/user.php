@@ -1,6 +1,6 @@
 <?php
     class user{
-        private $id;
+        private $idUser;
         private $login;
         private $passaword;
         private $criacao;
@@ -14,11 +14,11 @@
                 }
             }
         }
-        public function getId(){
-            return $this->id;
+        public function getIdUser(){
+            return $this->idUser;
         } 
-        public function setId($id){
-            return $this->id = $id;;
+        public function setIdUser($idUser){
+            return $this->idUser = $idUser;
         }
         public function getLogin(){
             return $this->login;
@@ -39,7 +39,7 @@
             return $this->criacao = $criacao;
         }
         public function __toString(){
-            return "ID: " . $this->id . " Login: " . $this->login . " Passaword: "
+            return "IDUser: " . $this->idUser . " Login: " . $this->login . " Passaword: "
                     . $this->passaword . " Criação: " . $this->criacao . "<br><br>";
         } 
     }

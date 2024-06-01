@@ -19,11 +19,15 @@
                     <input type="text" id="passaword" name="passaword" required>
                 </p>
                 <p>
-                    <p><b>Tipo de Conta</b></p>
-                    <input type="radio" name="tipo" value="cidade" required> Cidade
-                    <input type="radio" name="tipo" value="pessoa" required> Pessoa
-                    <input type="radio" name="tipo" value="empresa" required> Empresa
-                    <input type="radio" name="tipo" value="ponto" required> Ponto de Ajuda
+                    <b>Tipo de Conta</b><br>
+                    <input type="radio" id="cidade" name="tipo" value="cidade" required>
+                    <label for="cidade">Cidade</label>
+                    <input type="radio" id="pessoa" name="tipo" value="pessoa" required>
+                    <label for="pessoa">Pessoa</label>
+                    <input type="radio" id="empresa" name="tipo" value="empresa" required>
+                    <label for="empresa">Empresa</label>
+                    <input type="radio" id="ponto" name="tipo" value="ponto" required>
+                    <label for="ponto">Ponto de Ajuda</label>
                 </p>
                 <p>
                     <input type="submit" name="btCadUser" value="Cadastrar Usuário">
@@ -35,7 +39,7 @@
 </html>
 
 <?php
-    include_once "../Model/user.php";
+    /*include_once "../Model/user.php";
     include_once '../Controlle/userDAO.php';
 
     if(isset($_POST['login']) && isset($_POST['passaword']) && isset($_POST['tipo'])){
@@ -52,5 +56,29 @@
             $funcionario = new user($funcionario);
              echo $funcionario;
         }
+    }*/
+
+    if(isset($_POST['login']) && isset($_POST['passaword']) && isset($_POST['tipo'])){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $_SESSION["USER_LOGIN"] = $_POST['login'];
+        $_SESSION["USER_PASSAWORD"] = $_POST['passaword'];
+        $_SESSION["USER_TIPO"] = $_POST['tipo'];
+        switch ($_POST['tipo']) {
+            case 'cidade':
+                header("Location: telaCadCidade.php");
+                break;
+            case 'empresa':
+                header("Location: telaCadEmpresa.php");
+                break;
+            case 'pessoa':
+                header("Location: telaCadPessoa.php");
+                break;
+            case 'ponto':
+                header("Location: telaCadPonto.php");
+                break;
+        }
+        exit; 
     }
 ?>
