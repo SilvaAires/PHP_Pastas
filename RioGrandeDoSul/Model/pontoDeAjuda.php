@@ -9,6 +9,7 @@
         private $cnpj;
         private $descricao;
         private $userFK;
+        private $nome;
         public function __construct(){
             if (func_num_args() != 0) {
                 $atributos = func_get_args()[0];
@@ -73,11 +74,17 @@
         public function setUserFK($userFK){
             return $this->userFK = $userFK;
         }
+        public function getNome(){
+            return $this->nome;
+        } 
+        public function setNome($nome){
+            return $this->nome = $nome;
+        }
         public function __toString(){
             return "idAjuda: " . $this->idAjuda . " telefone: " . $this->telefone . " email: "
                     . $this->email . " endereco: " . $this->endereco . " cidade: " . $this->cidade .
                     " cpf: " . $this->cpf . " cnpj: " . $this->cnpj . " descricao: " . $this->descricao .
-                    " userFK: " . $this->userFK . "<br><br>";
+                    " userFK: " . $this->userFK . " nome: " . $this->nome . "<br><br>";
         } 
     }
 ?>

@@ -19,5 +19,19 @@
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, user::class);
             return $lista;
         }  
+        function selectAllUser1($idUser){
+            $pstmt = $this->conexao->prepare("SELECT * FROM user us WHERE us.idUser = :idUser ");
+            $pstmt->bindValue(":idUser", $idUser);
+            $pstmt->execute();
+            $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, cidade::class);
+            return $lista;
+        } 
+        function selectLoginUser1($login){
+            $pstmt = $this->conexao->prepare("SELECT * FROM user us WHERE us.login = :login ");
+            $pstmt->bindValue(":login", $login);
+            $pstmt->execute();
+            $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, cidade::class);
+            return $lista;
+        } 
     }
 ?>
