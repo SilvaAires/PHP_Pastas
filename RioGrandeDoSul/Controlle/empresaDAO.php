@@ -54,5 +54,32 @@
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, empresa::class);
             return $lista;
         }  
+        function deleteEmpresa($idUser){
+            $pstmt = $this->conexao->prepare("DELETE FROM empresa em WHERE em.userFKEmpresa = :idUser");
+            $pstmt->bindValue(":idUser", $idUser);
+            $pstmt->execute();
+            return $pstmt;
+        } 
+        function updateEmpresa(empresa $empresa){
+            $pstmt = $this->conexao->prepare("UPDATE empresa SET nome = :nome, cnpj = :cnpj, telefone = : telefone, 
+            email = :email, pix = :pix, prejuizo = :prejuizo, valorArrecadado = :valorArrecadado, endereco = :endereco, 
+            cidade = :cidade, comprovanteResidencia = :comprovanteResidencia, vagasDeEmprego = :vagasDeEmprego, empregadosTotal = :empregadosTotal, 
+            WHERE userFKEmpresa = :userFKEmpresa");
+            $pstmt->bindValue(":nome", $empresa->getTelefone());
+            $pstmt->bindValue(":cnpj", $empresa->getCnpj());
+            $pstmt->bindValue(":telefone", $empresa->getTelefone());
+            $pstmt->bindValue(":email", $empresa->getEmail());
+            $pstmt->bindValue(":pix", $empresa->getPix());
+            $pstmt->bindValue(":prejuizo", $empresa->getPrejuizo());
+            $pstmt->bindValue(":valorArrecadado", $empresa->getValorArrecadado());
+            $pstmt->bindValue(":endereco", $empresa->getEndereco());
+            $pstmt->bindValue(":cidade", $empresa->getCidade());
+            $pstmt->bindValue(":comprovanteResidencia", $empresa->getComprovanteResidencia());
+            $pstmt->bindValue(":vagasDeEmprego", $empresa->getVagasDeEmprego());
+            $pstmt->bindValue(":empregadosTotal", $empresa->getEmpregadosTotal());
+            $pstmt->bindValue(":userFKEmpresa", $empresa->getUserFKEmpresa());
+            $pstmt->execute();
+            return $pstmt;
+        } 
     }
 ?>

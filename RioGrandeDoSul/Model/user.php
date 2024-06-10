@@ -4,6 +4,7 @@
         private $login;
         private $passaword;
         private $criacao;
+        private $tipoDeConta;
         public function __construct(){
             if (func_num_args() != 0) {
                 $atributos = func_get_args()[0];
@@ -38,9 +39,15 @@
         public function setCriacao($criacao){
             return $this->criacao = $criacao;
         }
+        public function getTipoDeConta(){
+            return $this->tipoDeConta;
+        } 
+        public function setTipoDeConta($tipoDeConta){
+            return $this->tipoDeConta = $tipoDeConta;
+        }
         public function __toString(){
             return "IDUser: " . $this->idUser . " Login: " . $this->login . " Passaword: "
-                    . $this->passaword . " Criação: " . $this->criacao . "<br><br>";
+                    . $this->passaword . " Criação: " . $this->criacao . " Tipo De Conta: " . $this->tipoDeConta . "<br><br>";
         } 
     }
 ?>

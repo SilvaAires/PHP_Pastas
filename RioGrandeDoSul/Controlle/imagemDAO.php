@@ -70,6 +70,21 @@
             $pstmt->execute();
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, imagem::class);
             return $lista;
-        }    
+        }   
+        function deleteImagem($idUser){
+            $pstmt = $this->conexao->prepare("DELETE FROM imagens im WHERE im.userFK = :idUser");
+            $pstmt->bindValue(":idUser", $idUser);
+            $pstmt->execute();
+            return $pstmt;
+        }   
+        function updateImagem(imagem $imagem){
+            $pstmt = $this->conexao->prepare("UPDATE imagens SET descricao = :descricao, imagem = :imagem
+            WHERE idimagem = :idimagem");
+            $pstmt->bindValue(":descricao", $imagem->getDescricao());
+            $pstmt->bindValue(":imagem", $imagem->getImagem());
+            $pstmt->bindValue(":idimagem", $imagem->getIdimagem());
+            $pstmt->execute();
+            return $pstmt;
+        } 
     }
 ?>

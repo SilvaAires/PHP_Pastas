@@ -26,6 +26,7 @@
             $pstmt->bindValue(":email", $cidade->getEmail());
             $pstmt->bindValue(":userFKCidade", $cidade->getUserFKCidade());
             $pstmt->execute();
+            return $pstmt;
         }
         public function selectAllCidade(){
             $pstmt = $this->conexao->prepare("SELECT * FROM cidade");
@@ -53,6 +54,34 @@
             $pstmt->execute();
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, cidade::class);
             return $lista;
-        }    
+        }
+        function deleteCidade($idUser){
+            $pstmt = $this->conexao->prepare("DELETE FROM cidade ci WHERE ci.userFKCidade = :idUser");
+            $pstmt->bindValue(":idUser", $idUser);
+            $pstmt->execute();
+            return $pstmt;
+        }   
+        function updateCidade(cidade $cidade){
+            $pstmt = $this->conexao->prepare("UPDATE cidade SET nome = :nome, populacao = :populacao,
+            feridos = :feridos, mortos = :mortos, desabrigados = :desabrigados, pix = :pix, 
+            estadoSituacao = :estadoSituacao, prejuizo = :prejuizo, valorArrecadado = :valorArrecadado, 
+            desemprego = :desemprego, telefone = :telefone, email = :email
+            WHERE userFKCidade = :userFKCidade");
+            $pstmt->bindValue(":nome", $cidade->getNome());
+            $pstmt->bindValue(":populacao", $cidade->getPopulacao());
+            $pstmt->bindValue(":feridos", $cidade->getFeridos());
+            $pstmt->bindValue(":mortos", $cidade->getMortos());
+            $pstmt->bindValue(":desabrigados", $cidade->getDesabrigados());
+            $pstmt->bindValue(":pix", $cidade->getPix());
+            $pstmt->bindValue(":estadoSituacao", $cidade->getEstadoSituacao());
+            $pstmt->bindValue(":prejuizo", $cidade->getPrejuizo());
+            $pstmt->bindValue(":valorArrecadado", $cidade->getValorArrecadado());
+            $pstmt->bindValue(":desemprego", $cidade->getDesemprego());
+            $pstmt->bindValue(":telefone", $cidade->getTelefone());
+            $pstmt->bindValue(":email", $cidade->getEmail());
+            $pstmt->bindValue(":userFKCidade", $cidade->getUserFKCidade());
+            $pstmt->execute();
+            return $pstmt;
+        } 
     }
 ?>

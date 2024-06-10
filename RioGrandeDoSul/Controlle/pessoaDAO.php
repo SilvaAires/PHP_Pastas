@@ -52,6 +52,32 @@
             $pstmt->execute();
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, pessoa::class);
             return $lista;
+        } 
+        function deletePessoa($idUser){
+            $pstmt = $this->conexao->prepare("DELETE FROM pessoa pe WHERE pe.userFKPessoa = :idUser");
+            $pstmt->bindValue(":idUser", $idUser);
+            $pstmt->execute();
+            return $pstmt;
+        }  
+        function updatePessoa(pessoa $pessoa){
+            $pstmt = $this->conexao->prepare("UPDATE pessoa SET nome = :nome, cpf = :cpf, telefone = : telefone, 
+            email = :email, pix = :pix, prejuizo = :prejuizo, valorArrecadado = :valorArrecadado, endereco = :endereco, 
+            cidade = :cidade, comprovanteResidencia = :comprovanteResidencia, situacaoDeEmprego = :situacaoDeEmprego  
+            WHERE userFKPessoa = :userFKPessoa");
+            $pstmt->bindValue(":nome", $pessoa->getTelefone());
+            $pstmt->bindValue(":cpf", $pessoa->getCpf());
+            $pstmt->bindValue(":telefone", $pessoa->getTelefone());
+            $pstmt->bindValue(":email", $pessoa->getEmail());
+            $pstmt->bindValue(":pix", $pessoa->getPix());
+            $pstmt->bindValue(":prejuizo", $pessoa->getPrejuizo());
+            $pstmt->bindValue(":valorArrecadado", $pessoa->getValorArrecadado());
+            $pstmt->bindValue(":endereco", $pessoa->getEndereco());
+            $pstmt->bindValue(":cidade", $pessoa->getCidade());
+            $pstmt->bindValue(":comprovanteResidencia", $pessoa->getComprovanteResidencia());
+            $pstmt->bindValue(":situacaoDeEmprego", $pessoa->getSituacaoDeEmprego());
+            $pstmt->bindValue(":userFKPessoa", $pessoa->getUserFKPessoa());
+            $pstmt->execute();
+            return $pstmt;
         }  
     }
 ?>

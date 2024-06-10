@@ -48,5 +48,27 @@
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, pontoDeAjuda::class);
             return $lista;
         }
+        function deletePonto($idUser){
+            $pstmt = $this->conexao->prepare("DELETE FROM pontodeajuda po WHERE po.userFK = :idUser");
+            $pstmt->bindValue(":idUser", $idUser);
+            $pstmt->execute();
+            return $pstmt;
+        } 
+        function updatePonto(pontoDeAjuda $ponto){
+            $pstmt = $this->conexao->prepare("UPDATE redecomunicacoes SET telefone = :telefone, email = :email, 
+            endereco = :endereco, cidade = :cidade, cpf = :cpf, cnpj = :cnpj, descricao = :descricao, nome = :nome 
+            WHERE userFK = :userFK");
+            $pstmt->bindValue(":telefone", $ponto->getTelefone());
+            $pstmt->bindValue(":email", $ponto->getEmail());
+            $pstmt->bindValue(":endereco", $ponto->getEndereco());
+            $pstmt->bindValue(":cidade", $ponto->getCidade());
+            $pstmt->bindValue(":cpf", $ponto->getCpf());
+            $pstmt->bindValue(":cnpj", $ponto->getCnpj());
+            $pstmt->bindValue(":descricao", $ponto->getDescricao());
+            $pstmt->bindValue(":nome", $ponto->getNome());
+            $pstmt->bindValue(":userFK", $ponto->getUserFK());
+            $pstmt->execute();
+            return $pstmt;
+        }   
     }
 ?>
