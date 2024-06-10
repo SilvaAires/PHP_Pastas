@@ -51,46 +51,6 @@
 </html>
 
 <?php
-    /*include_once '../Model/user.php';
-    include_once '../Controlle/userDAO.php';
-    if(isset($_POST['nome'])){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        $login = $_SESSION["USER_LOGIN"];
-        $passaword = $_SESSION["USER_PASSAWORD"];
-        $tipo = $_SESSION["USER_TIPO"];
-        
-        $data_hora = date("Y-m-d H:i:s");
-        $arrrayUser = array("login" => $login, 
-                            "passaword" => $passaword, 
-                            "criacao" => $data_hora, 
-                            "tipoDeConta" => $tipo
-                        );
-        $userDAo = new userDAO();
-        $user = new user($arrrayUser);
-
-        $userDAo->insertUser($user);
-
-        $lista = $userDAo->selectLoginUser1($login);
-
-        $funcionario = new user($lista[0]);
-        $fk = $funcionario->getIdUser();
-            
-        $arrrayRedeDeComunicacao = array("facebook" => $_POST['facebook'], 
-                        "twitter" => $_POST['twitter'], 
-                        "linkedin" => $_POST['linkedin'], 
-                        "whatsApp" => $_POST['whatsApp'],
-                        "site" => $_POST['site'],
-                        "portifolio" => $_POST['portifolio'],
-                        "userFKRede" => $fk
-                    );
-
-        $redeDeComunicacaoDAO = new redeDeComunicacaoDAO();
-        $redeDeComunicacao = new redeDeComunicacao($arrrayRedeDeComunicacao);
-
-        $redeDeComunicacaoDAO->insertRede($redeDeComunicacao);
-    }*/
     include_once 'funcoes.php';
 
     if(isset($_POST['btCadRede'])){
