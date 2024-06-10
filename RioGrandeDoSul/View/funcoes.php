@@ -66,7 +66,7 @@
                             "comprovanteResidencia" => $comprovante,
                             "vagasDeEmprego" => $vagasDeEmprego,
                             "empregadosTotal" => $empregadosTotal,
-                            "userFKPessoa" => $fk
+                            "userFKEmpresa" => $fk
                         );
 
         $empresaDAO = new empresaDAO();
@@ -87,7 +87,7 @@
                             "desemprego" => $desemprego,
                             "telefone" => $telefone,
                             "email" => $email,
-                            "userFKPessoa" => $fk
+                            "userFKCidade" => $fk
                         );
 
         $cidadeDAO = new cidadeDAO();
@@ -103,7 +103,7 @@
                             "cpf" => $cpf,
                             "cnpj" => $cnpj,
                             "descricao" => $descricao,
-                            "fk" => $fk,
+                            "userFK" => $fk,
                             "nome" => $nome
                         );
 
@@ -112,10 +112,25 @@
 
         $pontoDeAjudaDAO->insertPonto($pontoDeAjuda);
     }
-    function insert_Rede($descricao, $imagem, $fk){
+    function insert_Rede($facebook, $twitter, $linkedin, $whatsApp, $site, $portifolio, $userFKRede){
+        $arrrayRede = array("facebook" => $facebook, 
+                            "twitter" => $twitter, 
+                            "linkedin" => $linkedin, 
+                            "whatsApp" => $whatsApp,
+                            "site" => $site,
+                            "portifolio" => $portifolio,
+                            "userFKRede" => $userFKRede
+                        );
+
+        $redeDeComunicacaoDAO = new redeDeComunicacaoDAO();
+        $redeDeComunicacao = new redeDeComunicacao($arrrayRede);
+
+        $redeDeComunicacaoDAO->insertRede($redeDeComunicacao);
+    }
+    function insert_Imagem($descricao, $imagem, $fk){
         $arrrayImagem = array("descricao" => $descricao, 
                             "imagem" => $imagem, 
-                            "fk" => $fk
+                            "userFK" => $fk
                         );
 
         $imagemDAO = new imagemDAO();
