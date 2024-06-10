@@ -97,29 +97,24 @@
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $_SESSION["USER_FACEBOOK"] = $_POST['facebook'];
-        $_SESSION["USER_TWITTER"] = $_POST['twitter'];
-        $_SESSION["USER_LINKEDIN"] = $_POST['linkedin'];
-        $_SESSION["USER_WHATSAPP"] = $_POST['whatsApp'];
-        $_SESSION["USER_SITE"] = $_POST['site'];
-        $_SESSION["USER_PORTIFOLIO"] = $_POST['portifolio'];
 
-        $login = $_SESSION["USER_LOGIN"];
-        $passaword = $_SESSION["USER_PASSAWORD"];
-        $tipo = $_SESSION["USER_TIPO"];
-        switch ($tipo) {
+        $fk = insert_User_Return_ID($_SESSION["USER_LOGIN"], $_SESSION["USER_PASSAWORD"], $_SESSION["USER_TIPO"]);
+        insert_Rede($_POST['facebook'], $_POST['twitter'], $_POST['linkedin'], $_POST['whatsApp'], $_POST['site'], $_POST['portifolio'], $fk);
+        
+        switch ($_SESSION["USER_TIPO"]) {
             case 'cidade':
-                $fk = insert_User_Return_ID($login, $passaword, $tipo);
                 insert_Cidade($_SESSION["USER_NOME"], $_SESSION["USER_POPULACAO"], $_SESSION["USER_FERIDOS"], $_SESSION["USER_MORTOS"], $_SESSION["USER_DESABRIGADOS"], $_SESSION["USER_PIX"], $_SESSION["USER_ESTADOSITUACAO"], $_SESSION["USER_PREJUIZO"], $_SESSION["USER_VALORARRECADADO"], $_SESSION["USER_DESEMPREGO"], $_SESSION["USER_TELEFONE"], $_SESSION["USER_EMAIL"], $fk);
+                header("Location: telaCadImagens.php");
                 break;
             case 'empresa':
-                header("Location: telaCadEmpresa.php");
+                header("Location: telaCadImagens.php");
                 break;
             case 'pessoa':
-                header("Location: telaCadPessoa.php");
+                insert_Pessoa($_SESSION["USER_NOME"], $_SESSION["USER_CPF"], $_SESSION["USER_TELEFONE"], $_SESSION["USER_EMAIL"], $_SESSION["USER_PIX"], $_SESSION["USER_PREJUIZO"], $_SESSION["USER_VALORARRECADADO"], $_SESSION["USER_ENDERECO"], $_SESSION["USER_CIDADE"], $_SESSION["USER_COMPROVANTE"], $_SESSION["USER_SITUACAODEEMPREGO"], $fk);
+                header("Location: telaCadImagens.php");
                 break;
             case 'ponto':
-                header("Location: telaCadPontoDeAjuda.php");
+                header("Location: telaCadImagens.php");
                 break;
         }
         exit;
