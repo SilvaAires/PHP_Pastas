@@ -2,8 +2,9 @@
     class imagem{
         private $idimagem;
         private $descricao;
-        private $imagem;
+        private $caminho;
         private $userFK;
+        private $data_upload;
         public function __construct(){
             if (func_num_args() != 0) {
                 $atributos = func_get_args()[0];
@@ -26,11 +27,11 @@
         public function setDescricao($descricao){
             return $this->descricao = $descricao;
         }
-        public function getImagem(){
-            return $this->imagem;
+        public function getCaminho(){
+            return $this->caminho;
         } 
-        public function setImagem($imagem){
-            return $this->imagem = $imagem;
+        public function setCaminho($caminho){
+            return $this->caminho = $caminho;
         }
         public function getUserFK(){
             return $this->userFK;
@@ -38,9 +39,15 @@
         public function setUserFK($userFK){
             return $this->userFK = $userFK;
         }
+        public function getData_upload(){
+            return $this->data_upload;
+        } 
+        public function setData_upload($data_upload){
+            return $this->data_upload = $data_upload;
+        }
         public function __toString(){
-            return "idimagem: " . $this->idimagem . " descricao: " . $this->descricao . " imagem: "
-                    . $this->imagem . " userFK: " . $this->userFK . "<br><br>";
+            return "idimagem: " . $this->idimagem . " descricao: " . $this->descricao . " caminho: "
+                    . $this->caminho . " userFK: " . $this->userFK . " data_upload: " . $this->data_upload . "<br><br>";
         } 
     }
 ?>

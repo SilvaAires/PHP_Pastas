@@ -29,22 +29,18 @@
                         <input type="text" id="email" name="email" required>
                     </p>
                     <p>
-                        <label for="pix">Pix:</label>
-                        <input type="text" id="pix" name="pix" required>
+                        <label for="prejuizo">Prejuizo:</label>
+                        <input type="text" id="prejuizo" name="prejuizo" required>
                     </p>
                 </div>
                 <div id="esquerda">
                     <p>
-                        <label for="prejuizo">Prejuizo:</label>
-                        <input type="text" id="prejuizo" name="prejuizo" required>
-                    </p>
-                    <p>
-                        <label for="vagasDeEmprego">Vagas de emprego:</label>
-                        <input type="text" id="vagasDeEmprego" name="vagasDeEmprego" required>
-                    </p>
-                    <p>
                         <label for="valorArrecadado">Valor Arrecadado:</label>
                         <input type="text" id="valorArrecadado" name="valorArrecadado" required>
+                    </p>
+                    <p>
+                        <label for="pix">Pix:</label>
+                        <input type="text" id="pix" name="pix" required>
                     </p>
                     <p>
                         <label for="endereco">Endereço:</label>
@@ -54,6 +50,10 @@
                         <label for="cidade">Cidade:</label>
                         <input type="text" id="cidade" name="cidade" required>
                     </p>
+                    <p>
+                        <label for="vagasDeEmprego">Vagas de emprego:</label>
+                        <input type="text" id="vagasDeEmprego" name="vagasDeEmprego" required>
+                    </p>
                 </div>
                 <div id="baixo">
                     <p>
@@ -61,8 +61,8 @@
                         <input type="text" id="empregadosTotal" name="empregadosTotal" required>
                     </p>
                     <p>
-                        <label>Comprovante de residência:</label>
-                        <input type="file" name="arquivo" required>
+                        <label for="fileEMP">Comprovante de residência:</label>
+                        <input type="file" name="fileEMP" id="fileEMP" required>
                     </p>
                     <p>
                         <input type="submit" name="btCadEmpresa" value="Próximo">
@@ -75,64 +75,55 @@
 </html>
 
 <?php
-    include_once '../Model/user.php';
-    include_once '../Controlle/userDAO.php';
-    
-    if(isset($_POST['nome'])){
+    if(isset($_POST['btCadEmpresa'])){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $login = $_SESSION["USER_LOGIN"];
-        $passaword = $_SESSION["USER_PASSAWORD"];
-        $tipo = $_SESSION["USER_TIPO"];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["fileEMP"])){
+            // Pasta onde o arquivo será salvo
+            $target_dir = "Comprovantes/";
+            // Caminho completo do arquivo
+            $target_file = $target_dir . basename($_FILES["fileEMP"]["name"]);
+            $uploadOk = 1;
+            $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            if ($_FILES["fileEMP"]["size"] > 5000000) { // 5MB
+                echo "Desculpe, o arquivo é muito grande.";
+                $uploadOk = 0;
+            }
         
-        $data_hora = date("Y-m-d H:i:s");
-        $arrrayUser = array("login" => $login, 
-                            "passaword" => $passaword, 
-                            "criacao" => $data_hora, 
-                            "tipoDeConta" => $tipo
-                        );
-        $userDAo = new userDAO();
-        $user = new user($arrrayUser);
-
-        $userDAo->insertUser($user);
-
-        $lista = $userDAo->selectLoginUser1($login);
-
-        $funcionario = new user($lista[0]);
-        $fk = $funcionario->getIdUser();
-                    
-        $arquivo = $_FILES["arquivo"]["tmp_name"]; 
-        $tamanho = $_FILES["arquivo"]["size"];
-        $tipo    = $_FILES["arquivo"]["type"];
-        $nome  = $_FILES["arquivo"]["name"];
-
-        if($arquivo != "none"){
-            $fp = fopen($arquivo, "rb");
-            $comprovante = fread($fp, $tamanho);
-            $comprovante = addslashes($comprovante);
-            fclose($fp);  
-            
-            $arrrayEmpresa = array("nome" => $_POST['nome'], 
-                            "cnpj" => $_POST['cnpj'], 
-                            "telefone" => $_POST['telefone'], 
-                            "email" => $_POST['email'],
-                            "pix" => $_POST['pix'],
-                            "prejuizo" => $_POST['prejuizo'],
-                            "valorArrecadado" => $_POST['valorArrecadado'],
-                            "endereco" => $_POST['endereco'],
-                            "cidade" => $_POST['cidade'],
-                            "comprovanteResidencia" => $comprovante,
-                            "vagasDeEmprego" => $_POST['vagasDeEmprego'],
-                            "empregadosTotal" => $_POST['empregadosTotal'],
-                            "userFKEmpresa" => $fk
-                        );
-
-            $empresaDAO = new empresaDAO();
-            $empresa = new empresa($arrrayEmpresa);
-
-            $empresaDAO->insertEmpresa($empresa);
-        }
+            // Permite certos formatos de arquivo
+            $allowed_types = array("jpg", "png", "jpeg", "gif", "pdf");
+            if (!in_array($fileType, $allowed_types)) {
+                echo "Desculpe, apenas arquivos JPG, JPEG, PNG, GIF e PDF são permitidos.";
+                $uploadOk = 0;
+            }
         
+            // Verifica se $uploadOk é 0 por causa de um erro
+            if ($uploadOk == 0) {
+                echo "Desculpe, seu arquivo não foi enviado.";
+            } else{
+                if (move_uploaded_file($_FILES["fileEMP"]["tmp_name"], $target_file)){
+                    //echo "O arquivo " . htmlspecialchars(basename($_FILES["fileEMP"]["name"])) . " foi enviado.";
+
+                    $_SESSION["EMP_NOME"] = $_POST['nome'];
+                    $_SESSION["EMP_CNPJ"] = $_POST['cnpj'];
+                    $_SESSION["EMP_TELE"] = $_POST['telefone'];
+                    $_SESSION["EMP_EMAIL"] = $_POST['email'];
+                    $_SESSION["EMP_PREJ"] = $_POST['prejuizo'];
+                    $_SESSION["EMP_VAL"] = $_POST['valorArrecadado'];
+                    $_SESSION["EMP_PIX"] = $_POST['pix'];
+                    $_SESSION["EMP_END"] = $_POST['endereco'];
+                    $_SESSION["EMP_CID"] = $_POST['cidade'];
+                    $_SESSION["EMP_COMP"] = $target_file;
+                    $_SESSION["EMP_VAG"] = $_POST['vagasDeEmprego'];
+                    $_SESSION["EMP_EMPT"] = $_POST['empregadosTotal'];
+                    header("Location: telaCadRedeDeComunicacao.php");
+                }else {
+                    echo "Desculpe, houve um erro ao enviar seu arquivo.";
+                }
+            }
+        }  
     }
 ?>

@@ -76,17 +76,21 @@
 
 <?php
     if(isset($_POST['btCadCidade'])){
-        $_SESSION["USER_NOME"] = $_POST['nome'];
-        $_SESSION["USER_POPULACAO"] = $_POST['populacao'];
-        $_SESSION["USER_FERIDOS"] = $_POST['feridos'];
-        $_SESSION["USER_MORTOS"] = $_POST['mortos'];
-        $_SESSION["USER_DESABRIGADOS"] = $_POST['desabrigados'];
-        $_SESSION["USER_PIX"] = $_POST['pix'];
-        $_SESSION["USER_ESTADOSITUACAO"] = $_POST['estadoSituacao'];
-        $_SESSION["USER_VALORARRECADADO"] = $_POST['valorArrecadado'];
-        $_SESSION["USER_DESEMPREGO"] = $_POST['desemprego'];
-        $_SESSION["USER_TELEFONE"] = $_POST['telefone'];
-        $_SESSION["USER_EMAIL"] = $_POST['email'];
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $_SESSION["CIDADE_NOME"] = $_POST['nome'];
+        $_SESSION["CIDADE_POPULACAO"] = $_POST['populacao'];
+        $_SESSION["CIDADE_FERIDOS"] = $_POST['feridos'];
+        $_SESSION["CIDADE_MORTOS"] = $_POST['mortos'];
+        $_SESSION["CIDADE_DESABRIGADOS"] = $_POST['desabrigados'];
+        $_SESSION["CIDADE_PIX"] = $_POST['pix'];
+        $_SESSION["CIDADE_ESTADOSITUACAO"] = $_POST['estadoSituacao'];
+        $_SESSION["CIDADE_PREJUIZO"] = $_POST['prejuizo'];
+        $_SESSION["CIDADE_VALORARRECADADO"] = $_POST['valorArrecadado'];
+        $_SESSION["CIDADE_DESEMPREGO"] = $_POST['desemprego'];
+        $_SESSION["CIDADE_TELEFONE"] = $_POST['telefone'];
+        $_SESSION["CIDADE_EMAIL"] = $_POST['email'];
         header("Location: telaCadRedeDeComunicacao.php");
     }
 ?>

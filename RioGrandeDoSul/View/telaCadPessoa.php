@@ -57,8 +57,8 @@
                 </div>
                 <div id="baixo">
                     <p>
-                        <label>Comprovante de residência:</label>
-                        <input type="file" name="arquivo" required>
+                        <label for="fileP">Comprovante de residência:</label>
+                        <input type="file" name="fileP" id="fileP" required>
                     </p>
                     <p>
                         <input type="submit" name="btCadPessoa" value="Próximo">
@@ -75,28 +75,50 @@
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $arquivo = $_FILES["arquivo"]["tmp_name"]; 
-        $tamanho = $_FILES["arquivo"]["size"];
 
-        if($arquivo != "none"){
-            $fp = fopen($arquivo, "rb");
-            $comprovante = fread($fp, $tamanho);
-            $comprovante = addslashes($comprovante);
-            fclose($fp); 
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["fileP"])){
+            // Pasta onde o arquivo será salvo
+            $target_dir = "Comprovantes/";
+            // Caminho completo do arquivo
+            $target_file = $target_dir . basename($_FILES["fileP"]["name"]);
+            $uploadOk = 1;
+            $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            if ($_FILES["fileP"]["size"] > 5000000) { // 5MB
+                echo "Desculpe, o arquivo é muito grande.";
+                $uploadOk = 0;
+            }
         
-            $_SESSION["USER_NOME"] = $_POST['nome'];
-            $_SESSION["USER_CPF"] = $_POST['cpf'];
-            $_SESSION["USER_TELEFONE"] = $_POST['telefone'];
-            $_SESSION["USER_EMAIL"] = $_POST['email'];
-            $_SESSION["USER_PIX"] = $_POST['pix'];
-            $_SESSION["USER_PREJUIZO"] = $_POST['prejuizo'];
-            $_SESSION["USER_VALORARRECADADO"] = $_POST['valorArrecadado'];
-            $_SESSION["USER_ENDERECO"] = $_POST['endereco'];
-            $_SESSION["USER_CIDADE"] = $_POST['cidade'];
-            $_SESSION["USER_COMPROVANTE"] = $comprovante;
-            $_SESSION["USER_SITUACAODEEMPREGO"] = $_POST['situacaoDeEmprego'];
-            header("Location: telaCadRedeDeComunicacao.php");
-        }
+            // Permite certos formatos de arquivo
+            $allowed_types = array("jpg", "png", "jpeg", "gif", "pdf");
+            if (!in_array($fileType, $allowed_types)) {
+                echo "Desculpe, apenas arquivos JPG, JPEG, PNG, GIF e PDF são permitidos.";
+                $uploadOk = 0;
+            }
         
+            // Verifica se $uploadOk é 0 por causa de um erro
+            if ($uploadOk == 0) {
+                echo "Desculpe, seu arquivo não foi enviado.";
+            } else{
+                if (move_uploaded_file($_FILES["fileP"]["tmp_name"], $target_file)){
+                    //echo "O arquivo " . htmlspecialchars(basename($_FILES["fileP"]["name"])) . " foi enviado.";
+
+                    $_SESSION["PESSOA_NOME"] = $_POST['nome'];
+                    $_SESSION["PESSOA_CPF"] = $_POST['cpf'];
+                    $_SESSION["PESSOA_TELEFONE"] = $_POST['telefone'];
+                    $_SESSION["PESSOA_EMAIL"] = $_POST['email'];
+                    $_SESSION["PESSOA_PIX"] = $_POST['pix'];
+                    $_SESSION["PESSOA_PREJUIZO"] = $_POST['prejuizo'];
+                    $_SESSION["PESSOA_VALORARRECADADO"] = $_POST['valorArrecadado'];
+                    $_SESSION["PESSOA_ENDERECO"] = $_POST['endereco'];
+                    $_SESSION["PESSOA_CIDADE"] = $_POST['cidade'];
+                    $_SESSION["PESSOA_COMPROVANTE"] = $target_file;
+                    $_SESSION["PESSOA_SITUACAODEEMPREGO"] = $_POST['situacaoDeEmprego'];
+                    header("Location: telaCadRedeDeComunicacao.php");
+                }else {
+                    echo "Desculpe, houve um erro ao enviar seu arquivo.";
+                }
+            }
+        }  
     }
 ?>

@@ -58,22 +58,49 @@
             session_start();
         }
 
-        $fk = insert_User_Return_ID($_SESSION["USER_LOGIN"], $_SESSION["USER_PASSAWORD"], $_SESSION["USER_TIPO"]);
-        insert_Rede($_POST['facebook'], $_POST['twitter'], $_POST['linkedin'], $_POST['whatsApp'], $_POST['site'], $_POST['portifolio'], $fk);
+        $fk = insert_User_Return_ID($_SESSION["USER_LOGIN"], $_SESSION["USER_PASSAWORD"], 
+                                    $_SESSION["USER_TIPO"]);
+        
+        $_SESSION["USER_FK"] = $fk;
+
+        insert_Rede($_POST['facebook'], $_POST['twitter'], 
+                    $_POST['linkedin'], $_POST['whatsApp'], 
+                    $_POST['site'], $_POST['portifolio'], $fk);
         
         switch ($_SESSION["USER_TIPO"]) {
             case 'cidade':
-                insert_Cidade($_SESSION["USER_NOME"], $_SESSION["USER_POPULACAO"], $_SESSION["USER_FERIDOS"], $_SESSION["USER_MORTOS"], $_SESSION["USER_DESABRIGADOS"], $_SESSION["USER_PIX"], $_SESSION["USER_ESTADOSITUACAO"], $_SESSION["USER_PREJUIZO"], $_SESSION["USER_VALORARRECADADO"], $_SESSION["USER_DESEMPREGO"], $_SESSION["USER_TELEFONE"], $_SESSION["USER_EMAIL"], $fk);
+                insert_Cidade($_SESSION["CIDADE_NOME"], $_SESSION["CIDADE_POPULACAO"], 
+                              $_SESSION["CIDADE_FERIDOS"], $_SESSION["CIDADE_MORTOS"], 
+                              $_SESSION["CIDADE_DESABRIGADOS"], $_SESSION["CIDADE_PIX"], 
+                              $_SESSION["CIDADE_ESTADOSITUACAO"], $_SESSION["CIDADE_PREJUIZO"], 
+                              $_SESSION["CIDADE_VALORARRECADADO"], $_SESSION["CIDADE_DESEMPREGO"], 
+                              $_SESSION["CIDADE_TELEFONE"], $_SESSION["CIDADE_EMAIL"], $fk);
                 header("Location: telaCadImagens.php");
                 break;
             case 'empresa':
+                insert_Empresa($_SESSION["EMP_NOME"], $_SESSION["EMP_CNPJ"], 
+                               $_SESSION["EMP_TELE"], $_SESSION["EMP_EMAIL"], 
+                               $_SESSION["EMP_PREJ"], $_SESSION["EMP_VAL"], 
+                               $_SESSION["EMP_PIX"], $_SESSION["EMP_END"], 
+                               $_SESSION["EMP_CID"], $_SESSION["EMP_COMP"], 
+                               $_SESSION["EMP_VAG"], $_SESSION["EMP_EMPT"], 
+                               $fk);
                 header("Location: telaCadImagens.php");
                 break;
             case 'pessoa':
-                insert_Pessoa($_SESSION["USER_NOME"], $_SESSION["USER_CPF"], $_SESSION["USER_TELEFONE"], $_SESSION["USER_EMAIL"], $_SESSION["USER_PIX"], $_SESSION["USER_PREJUIZO"], $_SESSION["USER_VALORARRECADADO"], $_SESSION["USER_ENDERECO"], $_SESSION["USER_CIDADE"], $_SESSION["USER_COMPROVANTE"], $_SESSION["USER_SITUACAODEEMPREGO"], $fk);
+                insert_Pessoa($_SESSION["PESSOA_NOME"], $_SESSION["PESSOA_CPF"], 
+                              $_SESSION["PESSOA_TELEFONE"], $_SESSION["PESSOA_EMAIL"], 
+                              $_SESSION["PESSOA_PIX"], $_SESSION["PESSOA_PREJUIZO"], 
+                              $_SESSION["PESSOA_VALORARRECADADO"], $_SESSION["PESSOA_ENDERECO"], 
+                              $_SESSION["PESSOA_CIDADE"], $_SESSION["PESSOA_COMPROVANTE"], 
+                              $_SESSION["PESSOA_SITUACAODEEMPREGO"], $fk);
                 header("Location: telaCadImagens.php");
                 break;
             case 'ponto':
+                insert_Ponto($_SESSION["PONTO_TELEFONE"], $_SESSION["PONTO_EMAIL"],
+                             $_SESSION["PONTO_ENDERECO"], $_SESSION["PONTO_CIDADE"],
+                             $_SESSION["PONTO_CPF"], $_SESSION["PONTO_CNPJ"],
+                             $_SESSION["PONTO_DESCRICAO"], $fk, $_SESSION["PONTO_NOME"]);
                 header("Location: telaCadImagens.php");
                 break;
         }

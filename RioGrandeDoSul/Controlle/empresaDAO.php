@@ -8,23 +8,22 @@
         }
         function insertEmpresa(empresa $empresa){
             $pstmt = $this->conexao->prepare("INSERT INTO empresa 
-            (nome, cnpj, telefone, email, pix, prejuizo, valorArrecadado, endereco, 
-            cidade, comprovanteResidencia, vagasDeEmprego, empregadosTotal, userFKEmpresa) VALUES 
-            (:nome, :cnpj, :telefone, :email, :pix, :prejuizo, :valorArrecadado, :endereco, 
-            :cidade, :comprovanteResidencia, :vagasDeEmprego, :empregadosTotal, :userFKEmpresa)");
-            $pstmt->bindValue(":nome", $empresa->getNome());
-            $pstmt->bindValue(":cnpj", $empresa->getCnpj());
-            $pstmt->bindValue(":telefone", $empresa->getTelefone());
-            $pstmt->bindValue(":email", $empresa->getEmail());
-            $pstmt->bindValue(":pix", $empresa->getPix());
-            $pstmt->bindValue(":prejuizo", $empresa->getPrejuizo());
-            $pstmt->bindValue(":valorArrecadado", $empresa->getValorArrecadado());
-            $pstmt->bindValue(":endereco", $empresa->getEndereco());
-            $pstmt->bindValue(":cidade", $empresa->getCidade());
-            $pstmt->bindValue(":comprovanteResidencia", $empresa->getComprovanteResidencia());
-            $pstmt->bindValue(":vagasDeEmprego", $empresa->getVagasDeEmprego());
-            $pstmt->bindValue(":empregadosTotal", $empresa->getEmpregadosTotal());
-            $pstmt->bindValue(":userFKEmpresa", $empresa->getUserFKEmpresa());
+            (nome, cnpj, telefone, email, prejuizo, valorArrecadado, pix, endereco, 
+            cidade, comporvanteResidencia, vagasDeEmprego, empregadosTotal, userFKEmpresa) VALUES 
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $pstmt->bindValue(1, $empresa->getNome());
+            $pstmt->bindValue(2, $empresa->getCnpj());
+            $pstmt->bindValue(3, $empresa->getTelefone());
+            $pstmt->bindValue(4, $empresa->getEmail());
+            $pstmt->bindValue(5, $empresa->getPrejuizo());
+            $pstmt->bindValue(6, $empresa->getValorArrecadado());
+            $pstmt->bindValue(7, $empresa->getPix());
+            $pstmt->bindValue(8, $empresa->getEndereco());
+            $pstmt->bindValue(9, $empresa->getCidade());
+            $pstmt->bindValue(10, $empresa->getComprovanteResidencia());
+            $pstmt->bindValue(11, $empresa->getVagasDeEmprego());
+            $pstmt->bindValue(12, $empresa->getEmpregadosTotal());
+            $pstmt->bindValue(13, $empresa->getUserFKEmpresa());
             $pstmt->execute();
         }
         public function selectAllEmpresa(){

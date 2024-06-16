@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03/06/2024 às 06:13
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Tempo de geração: 14/06/2024 às 16:34
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,6 +44,13 @@ CREATE TABLE `cidade` (
   `userFKCidade` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `cidade`
+--
+
+INSERT INTO `cidade` (`idCidade`, `nome`, `populacao`, `feridos`, `mortos`, `desabrigados`, `pix`, `estadoSituacao`, `prejuizo`, `valorArrecadado`, `desemprego`, `telefone`, `email`, `userFKCidade`) VALUES
+(5, 'POA', 0, 0, 0, 0, 'POA', 'POA', 0, 0, 0, 'POA', 'POA', 29);
+
 -- --------------------------------------------------------
 
 --
@@ -61,7 +68,7 @@ CREATE TABLE `empresa` (
   `pix` varchar(250) NOT NULL,
   `endereco` varchar(150) NOT NULL,
   `cidade` varchar(150) NOT NULL,
-  `comporvanteResidencia` mediumblob NOT NULL,
+  `comporvanteResidencia` varchar(255) NOT NULL,
   `vagasDeEmprego` int(11) NOT NULL,
   `empregadosTotal` int(11) NOT NULL,
   `userFKEmpresa` int(11) NOT NULL
@@ -76,9 +83,19 @@ CREATE TABLE `empresa` (
 CREATE TABLE `imagens` (
   `idimagem` int(11) NOT NULL,
   `descricao` varchar(130) NOT NULL,
-  `imagem` mediumblob NOT NULL,
-  `userFK` int(11) NOT NULL
+  `caminho` varchar(255) NOT NULL,
+  `userFK` int(11) NOT NULL,
+  `data_upload` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `imagens`
+--
+
+INSERT INTO `imagens` (`idimagem`, `descricao`, `caminho`, `userFK`, `data_upload`) VALUES
+(11, 'Imagem1', 'Imagens/c1.jpg', 29, '2024-06-14 13:44:04'),
+(12, 'Imagem2', 'Imagens/c2.jpg', 29, '2024-06-14 13:44:13'),
+(13, 'Imagem3', 'Imagens/c3.jpg', 29, '2024-06-14 13:44:23');
 
 -- --------------------------------------------------------
 
@@ -97,7 +114,7 @@ CREATE TABLE `pessoa` (
   `valorArrecadado` double NOT NULL,
   `endereco` int(11) NOT NULL,
   `cidade` varchar(150) NOT NULL,
-  `comprovanteResidencia` mediumblob NOT NULL,
+  `comprovanteResidencia` varchar(255) NOT NULL,
   `situacaoDeEmprego` varchar(150) NOT NULL,
   `userFKPessoa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -138,6 +155,13 @@ CREATE TABLE `redecomunicacoes` (
   `userFKRede` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `redecomunicacoes`
+--
+
+INSERT INTO `redecomunicacoes` (`idRede`, `facebook`, `twitter`, `linkedin`, `whatsApp`, `site`, `portifolio`, `userFKRede`) VALUES
+(13, 'POA', 'POA', 'POA', 0, 'POA', 'POA', 29);
+
 -- --------------------------------------------------------
 
 --
@@ -148,19 +172,16 @@ CREATE TABLE `user` (
   `idUser` int(11) NOT NULL,
   `login` varchar(50) NOT NULL,
   `passaword` varchar(50) NOT NULL,
-  `criacao` datetime NOT NULL
+  `criacao` datetime NOT NULL,
+  `tipoDeConta` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `user`
 --
 
-INSERT INTO `user` (`idUser`, `login`, `passaword`, `criacao`) VALUES
-(1, '0', '0', '2024-06-01 04:43:50'),
-(2, '0', '0', '2024-06-01 04:44:44'),
-(3, 'reuy', 'ruy', '2024-06-01 04:46:11'),
-(4, 'erre', 'erre', '2024-06-01 08:47:12'),
-(5, 'df', 'df', '2024-06-01 08:48:14');
+INSERT INTO `user` (`idUser`, `login`, `passaword`, `criacao`, `tipoDeConta`) VALUES
+(29, 'POA', 'POA', '2024-06-14 15:43:51', 'cidade');
 
 --
 -- Índices para tabelas despejadas
@@ -222,25 +243,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `cidade`
 --
 ALTER TABLE `cidade`
-  MODIFY `idCidade` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `imagens`
 --
 ALTER TABLE `imagens`
-  MODIFY `idimagem` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idimagem` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `pessoa`
 --
 ALTER TABLE `pessoa`
-  MODIFY `idPessoa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPessoa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `pontodeajuda`
@@ -252,13 +273,13 @@ ALTER TABLE `pontodeajuda`
 -- AUTO_INCREMENT de tabela `redecomunicacoes`
 --
 ALTER TABLE `redecomunicacoes`
-  MODIFY `idRede` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRede` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `user`
 --
 ALTER TABLE `user`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Restrições para tabelas despejadas

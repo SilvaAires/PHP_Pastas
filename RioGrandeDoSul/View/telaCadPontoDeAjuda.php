@@ -49,7 +49,7 @@
                 </div>
                 <div id="baixo">
                     <p>
-                        <input type="submit" name="btCadPessoa" value="Próximo">
+                        <input type="submit" name="btCadPonto" value="Próximo">
                     </p>
                 </div>
             </form> 
@@ -59,48 +59,18 @@
 </html>
 
 <?php
-    include_once '../Model/user.php';
-    include_once '../Controlle/userDAO.php';
-    
-    if(isset($_POST['nome'])){
+    if(isset($_POST['btCadPonto'])){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $login = $_SESSION["USER_LOGIN"];
-        $passaword = $_SESSION["USER_PASSAWORD"];
-        $tipo = $_SESSION["USER_TIPO"];
-        
-        $data_hora = date("Y-m-d H:i:s");
-        $arrrayUser = array("login" => $login, 
-                            "passaword" => $passaword, 
-                            "criacao" => $data_hora, 
-                            "tipoDeConta" => $tipo
-                        );
-        $userDAo = new userDAO();
-        $user = new user($arrrayUser);
-
-        $userDAo->insertUser($user);
-
-        $lista = $userDAo->selectLoginUser1($login);
-
-        $funcionario = new user($lista[0]);
-        $fk = $funcionario->getIdUser();
-         
-            
-        $arrrayPontoDeAjuda = array("telefone" => $_POST['telefone'], 
-                        "email" => $_POST['email'], 
-                        "endereco" => $_POST['endereco'], 
-                        "cidade" => $_POST['cidade'],
-                        "cpf" => $_POST['cpf'],
-                        "cnpj" => $_POST['cnpj'],
-                        "descricao" => $_POST['descricao'],
-                        "userFK" => $fk,
-                        "nome" => $_POST['nome']
-                    );
-
-        $pontoDeAjudaDAO = new pontoDeAjudaDAO();
-        $pontoDeAjuda = new pontoDeAjuda($arrrayPontoDeAjuda);
-
-        $pontoDeAjudaDAO->insertPonto($pontoDeAjuda);        
+        $_SESSION["PONTO_TELEFONE"] = $_POST['telefone'];
+        $_SESSION["PONTO_EMAIL"] = $_POST['email'];
+        $_SESSION["PONTO_ENDERECO"] = $_POST['endereco'];
+        $_SESSION["PONTO_CIDADE"] = $_POST['cidade'];
+        $_SESSION["PONTO_CPF"] = $_POST['cpf'];
+        $_SESSION["PONTO_CNPJ"] = $_POST['cnpj'];
+        $_SESSION["PONTO_DESCRICAO"] = $_POST['descricao'];
+        $_SESSION["PONTO_NOME"] = $_POST['nome'];
+        header("Location: telaCadRedeDeComunicacao.php");      
     }
 ?>

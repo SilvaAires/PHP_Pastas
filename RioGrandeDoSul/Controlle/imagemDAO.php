@@ -7,11 +7,11 @@
             $this->conexao = Conexao::getConexao();
         }
         function insertImagem(imagem $imagem){
-            $pstmt = $this->conexao->prepare("INSERT INTO imagens (descricao, imagem, userFK) 
-            VALUES (:descricao, :imagem, :userFK)");
-            $pstmt->bindValue(":descricao", $imagem->getDescricao());
-            $pstmt->bindValue(":imagem", $imagem->getImagem());
-            $pstmt->bindValue(":userFK", $imagem->getUserFK());
+            $pstmt = $this->conexao->prepare("INSERT INTO imagens (descricao, caminho, userFK) 
+            VALUES (?, ?, ?)");
+            $pstmt->bindValue(1, $imagem->getDescricao());
+            $pstmt->bindValue(2, $imagem->getCaminho());
+            $pstmt->bindValue(3, $imagem->getUserFK());
             $pstmt->execute();
         }
         public function selectAllImagem(){
@@ -20,17 +20,24 @@
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, imagem::class);
             return $lista;
         }
-        function selectAllImagemUser($idUser){
-            $pstmt = $this->conexao->prepare("SELECT * FROM imagens im WHERE im.userFK = :idUser ");
-            $pstmt->bindValue(":idUser", $idUser);
+        function selectAllFK($userFK){
+            $pstmt = $this->conexao->prepare("SELECT im.caminho, im.descricao FROM imagens im WHERE im.userFK = ? ORDER BY RAND() LIMIT 3;");
+            $pstmt->bindValue(1, $userFK);
+            $pstmt->execute();
+            $lista = $pstmt->fetchAll();
+            return $lista;
+        } 
+        function selectAllImagemID($userFK){
+            $pstmt = $this->conexao->prepare("SELECT * FROM imagens im WHERE im.userFK = ? ");
+            $pstmt->bindValue(1, $userFK);
             $pstmt->execute();
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, imagem::class);
             return $lista;
         } 
         function selectEspecificaImagemUser($idUser, $descricao){
-            $pstmt = $this->conexao->prepare("SELECT * FROM imagens im WHERE im.userFK = :idUser AND im.descricao = :descricao");
-            $pstmt->bindValue(":idUser", $idUser);
-            $pstmt->bindValue(":descricao", $descricao);
+            $pstmt = $this->conexao->prepare("SELECT * FROM imagens im WHERE im.userFK = ? AND im.descricao = ?");
+            $pstmt->bindValue(1, $idUser);
+            $pstmt->bindValue(2, $descricao);
             $pstmt->execute();
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, imagem::class); 
             return $lista;
@@ -38,8 +45,8 @@
         function selectPessoaImagemUser($nomePessoa){
             $pstmt = $this->conexao->prepare("SELECT * 
                                               FROM imagens im, user us, pessoa pe
-                                              WHERE pe.nome = :nome AND pe.userFKPessoa = us.idUser AND us.idUser = im.userFK");
-            $pstmt->bindValue(":nome", $nomePessoa);
+                                              WHERE pe.nome = ? AND pe.userFKPessoa = us.idUser AND us.idUser = im.userFK");
+            $pstmt->bindValue(1, $nomePessoa);
             $pstmt->execute();
             $lista = $pstmt->fetchAll(PDO::FETCH_CLASS, imagem::class);
             return $lista;
@@ -78,11 +85,10 @@
             return $pstmt;
         }   
         function updateImagem(imagem $imagem){
-            $pstmt = $this->conexao->prepare("UPDATE imagens SET descricao = :descricao, imagem = :imagem
-            WHERE idimagem = :idimagem");
-            $pstmt->bindValue(":descricao", $imagem->getDescricao());
-            $pstmt->bindValue(":imagem", $imagem->getImagem());
-            $pstmt->bindValue(":idimagem", $imagem->getIdimagem());
+            $pstmt = $this->conexao->prepare("UPDATE imagens SET descricao = ?
+            WHERE idimagem = ?");
+            $pstmt->bindValue(1, $imagem->getDescricao());
+            $pstmt->bindValue(3, $imagem->getIdimagem());
             $pstmt->execute();
             return $pstmt;
         } 

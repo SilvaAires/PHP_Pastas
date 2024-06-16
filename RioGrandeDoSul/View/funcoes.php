@@ -58,9 +58,9 @@
                             "cnpj" => $cnpj, 
                             "telefone" => $telefone, 
                             "email" => $email,
-                            "pix" => $pix,
                             "prejuizo" => $prejuizo,
                             "valorArrecadado" => $valorArrecadado,
+                            "pix" => $pix,
                             "endereco" => $endereco,
                             "cidade" => $cidade,
                             "comprovanteResidencia" => $comprovante,
@@ -127,9 +127,9 @@
 
         $redeDeComunicacaoDAO->insertRede($redeDeComunicacao);
     }
-    function insert_Imagem($descricao, $imagem, $fk){
+    function insert_Imagem($descricao, $caminho, $fk){
         $arrrayImagem = array("descricao" => $descricao, 
-                            "imagem" => $imagem, 
+                            "caminho" => $caminho, 
                             "userFK" => $fk
                         );
 
@@ -138,5 +138,4 @@
 
         $imagemDAO->insertImagem($imagem);
     }
-?>
 ?>

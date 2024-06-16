@@ -15,13 +15,13 @@
                     <p>
                         <label for="descricao">Descrição:</label>
                     </p>
-                    <input type="text" id="descricao" name="descricao" required>
+                    <input type="text" id="descricao" name="descricao">
                 </p>
                 <p id="imag">
                     <p>
-                        <label>Imagem:</label>
+                        <label for="fileIMG">Imagem:</label>
                     </p>
-                    <input type="file" id="imagem" name="imagem" required>
+                    <input type="file" name="fileIMG" id="fileIMG">
                 </p>
                 <div id="baixo">
                     <div id="direita">
@@ -31,7 +31,7 @@
                     </div>
                     <div id="esquerda">
                         <p id="bt">
-                            <input type="submit" name="btCadImagem" value="Finalizar Cadastro">
+                            <input type="submit" name="btProximaPag" value="Finalizar Cadastro">
                         </p>
                     </div>
                 </div>
@@ -42,42 +42,50 @@
 </html>
 
 <?php
-    include_once '../Model/user.php';
-    include_once '../Controlle/userDAO.php';
-    if(isset($_POST['nome'])){
+    include_once 'funcoes.php';
+
+    if(isset($_POST['btCadImagem'])){
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
-        $login = $_SESSION["USER_LOGIN"];
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["fileIMG"])){
+            // Pasta onde o arquivo será salvo
+            $target_dir = "Imagens/";
+            // Caminho completo do arquivo
+            $target_file = $target_dir . basename($_FILES["fileIMG"]["name"]);
+            $uploadOk = 1;
+            $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+            if ($_FILES["fileIMG"]["size"] > 5000000) { // 5MB
+                echo "Desculpe, o arquivo é muito grande.";
+                $uploadOk = 0;
+            }
         
-        $userDAo = new userDAO();
-
-        $lista = $userDAo->selectLoginUser1($login);
-
-        $funcionario = new user($lista[0]);
-        $fk = $funcionario->getIdUser();
+            // Permite certos formatos de arquivo
+            $allowed_types = array("jpg", "png", "jpeg", "gif", "pdf");
+            if (!in_array($fileType, $allowed_types)) {
+                echo "Desculpe, apenas arquivos JPG, JPEG, PNG, GIF e PDF são permitidos.";
+                $uploadOk = 0;
+            }
+        
+            // Verifica se $uploadOk é 0 por causa de um erro
+            if ($uploadOk == 0) {
+                echo "Desculpe, seu arquivo não foi enviado.";
+            } else{
+                if (move_uploaded_file($_FILES["fileIMG"]["tmp_name"], $target_file)){
+                    //echo "O arquivo " . htmlspecialchars(basename($_FILES["fileIMG"]["name"])) . " foi enviado.";
+                    insert_Imagem($_POST['descricao'], $target_file, $_SESSION["USER_FK"]);
                     
-        $arquivo = $_FILES["arquivo"]["tmp_name"]; 
-        $tamanho = $_FILES["arquivo"]["size"];
-        $tipo    = $_FILES["arquivo"]["type"];
-        $nome  = $_FILES["arquivo"]["name"];
-
-        if($arquivo != "none"){
-            $fp = fopen($arquivo, "rb");
-            $imagem = fread($fp, $tamanho);
-            $imagem = addslashes($imagem);
-            fclose($fp);  
-            
-            $arrrayImagem = array("descricao" => $_POST['descricao'], 
-                            "imagem" => $imagem,
-                            "userFK" => $fk
-                        );
-
-            $imagemDAO = new imagemDAO();
-            $imagem = new imagem($arrrayImagem);
-
-            $imagemDAO->insertImagem($imagem);
+                    header("Location: telaCadImagens.php");
+                }else {
+                    echo "Desculpe, houve um erro ao enviar seu arquivo.";
+                }
+            }
+        } 
+    }else{
+        if(isset($_POST['btProximaPag'])){
+            header("Location: tela1Cidades.php");
         }
-        
     }
 ?>

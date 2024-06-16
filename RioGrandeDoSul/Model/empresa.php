@@ -5,9 +5,9 @@
         private $cnpj;
         private $telefone;
         private $email;
-        private $pix;
         private $prejuizo;
         private $valorArrecadado;
+        private $pix;
         private $endereco;
         private $cidade;
         private $comprovanteResidencia;
