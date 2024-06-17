@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
     <link rel="stylesheet" href="../CSS/EstiloMenu.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
@@ -37,11 +38,10 @@
     <section class="section-corpo">
         <div>
             <form name="menu" method="post" action="TelaSelect.php">
-                <p>
-                    <label for="nome1">Digite um nome:</label>
-                    <input type="text" id="nome1" name="nome1" required>
-                    <input type="submit" value="consulta" >
-                </p>
+                <p><label for="nome1">Digite um nome</label></p>
+                <p><input type="text" id="nome1" name="nome1" required></p>
+                <p><input type="submit" value="consulta"></p>
+                
             </form>
         </div>
 
@@ -152,7 +152,7 @@
         </div>
     </section>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 </body>
 </html>
