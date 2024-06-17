@@ -29,7 +29,25 @@
                 </ul>
 
                 <ul id="esquerda">
+                    <?php
+                        if (session_status() == PHP_SESSION_NONE) {
+                            session_start();
+                        }
+                        if(isset($_SESSION["USER_LOGIN"])):
+                    ?>
+                    <li id="esquerda"><a href="telaCadUser.php">Quantidade de User</a></li>
+                    <li id="esquerda"><a href="telaCadUser.php">Add Imagem</a></li>
+                    <li id="esquerda"><a href="telaCadUser.php">Perfil</a></li>
+                    <li id="esquerda"><a href="telaCadUser.php">Sair</a></li>
+                    <?php 
+                        endif; 
+                        if(!isset($_SESSION["USER_LOGIN"])):
+                    ?>
+                    <li id="esquerda"><a href="telaCadUser.php">Quantidade de User</a></li>
+                    <li id="esquerda"><a href="telaCadUser.php">Chaves Pix</a></li>
+                    <li id="esquerda"><a href="telaCadUser.php">Se Logar</a></li>
                     <li id="esquerda"><a href="telaCadUser.php">Se Cadastrar</a></li>
+                    <?php endif;?>
                 </ul>
             </nav>
         </header>
@@ -152,7 +170,6 @@
         </div>
     </section>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 </body>
 </html>
