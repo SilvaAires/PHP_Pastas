@@ -106,8 +106,9 @@
                     if($listaDeImg != null):
                 ?>
                 <tr id="ultimo">
-                    <td colspan="2" rowspan="1"></td>
-                    <th id="ultimo" colspan="2" >
+                    <!-- <td colspan="2" rowspan="1"></td> -->
+                    <!-- <th id="ultimo" colspan="2" > -->
+                    <th id="ultimo" colspan="6" >
                         <div id="carouselExampleCaptions<?php echo $cidade->getIdCidade();?>" class="carousel slide">
                             <div class="carousel-indicators">
                                 <button type="button" data-bs-target="#carouselExampleCaptions<?php echo $cidade->getIdCidade();?>" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
