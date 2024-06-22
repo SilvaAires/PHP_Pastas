@@ -1,0 +1,148 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header 
+.header-inicio {
+    background: #4b4646ce;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}*/
+
+.navbar-brand img {
+    height: 50px;
+}
+
+.navbar-img {
+    display: block;
+    max-height: 50px; /* Altura máxima */
+    max-width: 100%; /* Largura máxima */
+    object-fit: contain; /* Mantém a proporção */
+}
+
+/* Corpo */
+.section-corpo {
+    padding: 100px 20px 20px; /* Adiciona padding no topo para evitar sobreposição com o header fixo */
+    background: #fff;
+    margin: 20px auto;
+    max-width: 1200px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centraliza o conteúdo */
+    border: 10px solid black;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.div-corpo table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 2px solid #333;
+}
+
+.div-corpo table th,
+.div-corpo table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.div-corpo table th {
+    background: #333;
+    color: #fff;
+    text-align: center;
+}
+
+#bd {
+    background: #fff;
+    color: #333;
+}
+
+#bd:hover{
+    background: #333;
+    color: #fff;
+}
+
+.div-corpo table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* Títulos */
+.section-corpo h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo para ID branco */
+#branco {
+    background-color: #fff;
+    color: #000;
+}
+
+ /* Define a altura e largura das imagens do carrossel */
+.carousel-inner img {
+    width: 20%; /* Define a largura para 100% do contêiner */
+    height: 300px; /* Define a altura para 300px, ajuste conforme necessário */
+    object-fit: cover; /* Para garantir que a imagem se ajuste ao contêiner sem distorcer */
+    border-radius: 3px;
+    transition: .10s;
+}
+
+/*#ultimo {
+    width: 100%;
+    text-align: center;
+}
+
+#ultimo th {
+    width: 100%;
+}*/
+
+.carousel-img {
+    width: 20%; /* Define a largura para ocupar 100% do contêiner do carrossel */
+    height: auto; /* Mantém a proporção da imagem */
+    max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho do contêiner */
+    border-radius: 3px;
+    transition: .10s;
+}
+
+.carousel-item img {
+    height: 300px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-item img {
+        height: 150px;
+    }
+}
+
+#nome1 {
+    border: 3px solid #333;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
