@@ -1,0 +1,83 @@
+body{
+    background-color: lightsteelblue;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.form-group { 
+    margin-bottom: 15px; 
+}
+
+.header { 
+    margin-bottom: 30px; 
+}
+        
+.div-container { 
+    padding: 20px; 
+    background: #f8f9fa; 
+    border-radius: 10px; 
+    margin-bottom: 20px; 
+    margin-top: 20px;
+}
+        
+.success-msg { 
+    margin-top: 20px; 
+}
+        
+#embaixo { 
+    margin-top: 20px; 
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkslategrey; /* Altere para a cor de fundo que preferir */
+    padding: 10px 0; /* Espaçamento interno no topo e embaixo */
+}
+
+.menu-opcoes {
+    display: flex;
+    justify-content: center;
+}
+
+.nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    margin: 0 15px; /* Espaçamento entre os itens do menu */
+    border: 2px solid black;
+    border-radius: 6px;
+    background-color: white;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black; /* Cor do texto dos links */
+}
+
+.nav-link:hover {
+    background-color: black;
+    color: white; /* Cor do texto dos links ao passar o mouse */
+}
+
+.row { 
+    display: flex; 
+    justify-content: space-between; 
+}
+        
+.col { 
+    flex: 1; 
+    padding: 10px; 
+}
+
+#bd:hover{
+    background-color: black;
+    color: white;
+}
